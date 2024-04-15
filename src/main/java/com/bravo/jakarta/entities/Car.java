@@ -1,11 +1,6 @@
 package com.bravo.jakarta.entities;
-
-
-
 import jakarta.persistence.*;
-
 import java.util.List;
-
 
 @Entity
 public class Car {
@@ -15,7 +10,7 @@ public class Car {
     private int id;
     @Column(nullable = false)
     private int dailyCost = 500;
-    @Column(length = 20, nullable = false)
+    @Column(length = 20)
     private String brand;
     @Column(length = 30)
     private String model;
