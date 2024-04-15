@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerService implements CustomerServiceInterface {
@@ -25,11 +26,24 @@ public class CustomerService implements CustomerServiceInterface {
 
     @Override
     public Customer updateCustomer(Long id, Customer customer) {
+        Customer customerToUpdate;
+        Optional<Customer> customerCheck = customerRepository.findById(id);
+
+        if (customerCheck.isPresent()) {
+            customerToUpdate = customerCheck.get();
+            customerToUpdate.setUsername(customer.getUsername());
+            customerToUpdate.setName(customer.getName());
+            customerToUpdate.setEmail(customer.getEmail());
+            customerToUpdate.setAddress(customer.getAddress());
+            customerToUpdate.setPhoneNumber(customer.getPhoneNumber());
+            return customerRepository.save(customerToUpdate);
+        }
+
         return null;
     }
 
     @Override
-    public void deleteMember(Long id) {
+    public void deleteCustomer(Long id) {
         /*customerRepository.findById(id).orElseThrow();*/
         customerRepository.deleteById(id);
     }
