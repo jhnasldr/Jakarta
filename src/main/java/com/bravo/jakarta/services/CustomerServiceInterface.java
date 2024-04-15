@@ -1,7 +1,6 @@
 package com.bravo.jakarta.services;
 
 import com.bravo.jakarta.entities.Customer;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
@@ -12,5 +11,5 @@ public interface CustomerServiceInterface {
 
     Customer updateCustomer(Long id, Customer customer);
 
-    void deleteMember(Long id);
+    void deleteCustomer(Long id);
 }
