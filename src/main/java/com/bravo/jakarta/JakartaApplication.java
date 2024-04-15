@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class JakartaApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(JakartaApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(JakartaApplication.class, args);
+    }
 
 }
