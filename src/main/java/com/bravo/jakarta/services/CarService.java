@@ -17,10 +17,9 @@ public class CarService implements CarServiceInterface{
 
     private String normalize(String input) {
         if (input != null) {
-            // Trim leading and trailing whitespace and convert to uppercase.
             return input.trim().toUpperCase();
         }
-        return null; // Return null or alternatively, you might want to return an empty string.
+        return null;
     }
 
     @Override
