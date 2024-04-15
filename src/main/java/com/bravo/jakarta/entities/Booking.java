@@ -8,11 +8,12 @@ import java.util.List;
 @Entity
 public class Booking {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private LocalDateTime from;
+    private LocalDateTime starts;
     @Column(nullable = false)
-    private LocalDateTime till;
+    private LocalDateTime ends;
     @ManyToOne(targetEntity = Car.class, cascade = CascadeType.MERGE, optional = false)
     private Car car;
     @ManyToOne(targetEntity = Customer.class, cascade = CascadeType.MERGE)
@@ -21,27 +22,27 @@ public class Booking {
     public Booking() {
     }
 
-    public Booking(LocalDateTime from, LocalDateTime till, Car car, Customer customer) {
-        this.from = from;
-        this.till = till;
+    public Booking(LocalDateTime starts, LocalDateTime ends, Car car, Customer customer) {
+        this.starts = starts;
+        this.ends = ends;
         this.car = car;
         this.customer = customer;
     }
 
-    public LocalDateTime getFrom() {
-        return from;
+    public LocalDateTime getStarts() {
+        return starts;
     }
 
-    public void setFrom(LocalDateTime from) {
-        this.from = from;
+    public void setStarts(LocalDateTime starts) {
+        this.starts = starts;
     }
 
-    public LocalDateTime getTill() {
-        return till;
+    public LocalDateTime getEnds() {
+        return ends;
     }
 
-    public void setTill(LocalDateTime till) {
-        this.till = till;
+    public void setEnds(LocalDateTime ends) {
+        this.ends = ends;
     }
 
     public Car getCar() {
