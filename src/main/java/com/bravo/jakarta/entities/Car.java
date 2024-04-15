@@ -1,8 +1,11 @@
 package com.bravo.jakarta.entities;
 
+
+
 import jakarta.persistence.*;
 
 import java.util.List;
+
 
 @Entity
 public class Car {
