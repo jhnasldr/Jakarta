@@ -1,5 +1,6 @@
 package com.bravo.jakarta.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -14,8 +15,10 @@ public class Booking {
     private LocalDateTime starts;
     @Column(nullable = false)
     private LocalDateTime ends;
+    @JsonIgnoreProperties("bookings")
     @ManyToOne(targetEntity = Car.class, cascade = CascadeType.MERGE, optional = false)
     private Car car;
+    @JsonIgnoreProperties("bookings")
     @ManyToOne(targetEntity = Customer.class, cascade = CascadeType.MERGE)
     private Customer customer;
 

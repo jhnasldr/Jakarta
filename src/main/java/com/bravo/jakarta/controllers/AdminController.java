@@ -30,9 +30,9 @@ public class AdminController {
     }
 
     @DeleteMapping("/api/v1/deleteorder/{id}")
-    public ResponseEntity<Booking> deleteBooking(@PathVariable Long id){
+    public ResponseEntity<String> deleteBooking(@PathVariable Long id){
         bookingService.deleteBooking(id);
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>("Booking with id: " + id + " was deleted.", HttpStatus.OK);
     }
 
     @GetMapping("/api/v1/customers")
