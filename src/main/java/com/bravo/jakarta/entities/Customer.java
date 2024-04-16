@@ -10,19 +10,19 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username", length = 28, nullable = false)
+    @Column(name = "username", length = 28)
     private String username;
 
-    @Column(name = "name", length = 28, nullable = false)
+    @Column(name = "name", length = 28)
     private String name;
 
-    @Column(name = "address", length = 45, nullable = false)
+    @Column(name = "address", length = 45)
     private String address;
 
-    @Column(name = "email", length = 45, nullable = false)
+    @Column(name = "email", length = 45)
     private String email;
 
-    @Column(name = "phone_number", length = 15, nullable = false)
+    @Column(name = "phone_number", length = 15)
     private String phoneNumber;
 
     public Long getId() {
