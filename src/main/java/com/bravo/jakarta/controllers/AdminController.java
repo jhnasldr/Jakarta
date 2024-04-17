@@ -1,6 +1,8 @@
 package com.bravo.jakarta.controllers;
 
+import com.bravo.jakarta.DTOs.IdDTO;
 import com.bravo.jakarta.entities.Booking;
+import com.bravo.jakarta.entities.Car;
 import com.bravo.jakarta.entities.Customer;
 import com.bravo.jakarta.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +56,30 @@ public class AdminController {
     public ResponseEntity<String> deleteCustomerById(@PathVariable Long customerId) {
         customerService.deleteCustomer(customerId);
         return ResponseEntity.ok("Customer with id " + customerId + " was deleted.");
+
+    }
+
+    @GetMapping("/api/v1/allcars")
+    public List<Car> getAllCars(){
+        System.out.println(carService.getAllCars());
+        return carService.getAllCars();
+    }
+
+    @PostMapping("/api/v1/addcar")
+    public ResponseEntity<Car> addCar(@RequestBody Car car){
+        return new ResponseEntity<>(carService.addCar(car), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/api/v1/updatecar")
+    public ResponseEntity<Car> updateCar(@RequestBody Car car){
+        int id = car.getId();
+        return ResponseEntity.ok(carService.updateCar(id, car));
+    }
+
+    @DeleteMapping("/api/v1/deletecar")
+    public ResponseEntity<String> deleteCar(@RequestBody IdDTO idDTO){
+        carService.deleteCar(idDTO.getId());
+        return new ResponseEntity<>("Car deleted!", HttpStatus.OK);
 
     }
 }
