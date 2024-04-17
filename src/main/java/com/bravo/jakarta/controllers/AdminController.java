@@ -31,10 +31,10 @@ public class AdminController {
         return bookingService.getAllBookings();
     }
 
-    @DeleteMapping("/api/v1/deleteorder/{id}")
-    public ResponseEntity<String> deleteBooking(@PathVariable Long id){
-        bookingService.deleteBooking(id);
-        return new ResponseEntity<>("Booking with id: " + id + " was deleted.", HttpStatus.OK);
+    @DeleteMapping("/api/v1/deleteorder")
+    public ResponseEntity<String> deleteBooking(@RequestBody Booking booking){
+        bookingService.deleteBooking(booking.getId());
+        return new ResponseEntity<>("Booking with id: " + booking.getId() + " was deleted.", HttpStatus.OK);
     }
 
     @GetMapping("/api/v1/customers")
@@ -47,15 +47,16 @@ public class AdminController {
         return new ResponseEntity<>(customerService.addNewCustomer(customer), HttpStatus.CREATED);
     }
 
-    @PutMapping("/api/v1/updatecustomer/{customerId}")
-    public ResponseEntity<Customer> updateCustomer(@PathVariable Long customerId, @RequestBody Customer customer) {
-        return ResponseEntity.ok(customerService.updateCustomer(customerId, customer));
+    @PutMapping("/api/v1/updatecustomer/")
+    public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer) {
+        long id = customer.getId();
+        return ResponseEntity.ok(customerService.updateCustomer(id, customer));
     }
 
-    @DeleteMapping("/api/v1/deletecustomer/{customerId}")
-    public ResponseEntity<String> deleteCustomerById(@PathVariable Long customerId) {
-        customerService.deleteCustomer(customerId);
-        return ResponseEntity.ok("Customer with id " + customerId + " was deleted.");
+    @DeleteMapping("/api/v1/deletecustomer/")
+    public ResponseEntity<String> deleteCustomer(@RequestBody Customer customer) {
+        customerService.deleteCustomer(customer.getId());
+        return new ResponseEntity<>("Customer with id " + customer.getId()+  " was deleted.", HttpStatus.OK);
 
     }
 
