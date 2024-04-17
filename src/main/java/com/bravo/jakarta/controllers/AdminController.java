@@ -31,10 +31,10 @@ public class AdminController {
         return bookingService.getAllBookings();
     }
 
-    @DeleteMapping("/api/v1/deleteorder/{id}")
-    public ResponseEntity<String> deleteBooking(@PathVariable Long id){
-        bookingService.deleteBooking(id);
-        return new ResponseEntity<>("Booking with id: " + id + " was deleted.", HttpStatus.OK);
+    @DeleteMapping("/api/v1/deleteorder")
+    public ResponseEntity<String> deleteBooking(@RequestBody Booking booking){
+        bookingService.deleteBooking(booking.getId());
+        return new ResponseEntity<>("Booking with id: " + booking.getId() + " was deleted.", HttpStatus.OK);
     }
 
     @GetMapping("/api/v1/customers")
