@@ -35,6 +35,16 @@ public class AdminController {
         return new ResponseEntity<>("Booking with id: " + booking.getId() + " was deleted.", HttpStatus.OK);
     }
 
+    @PostMapping("/api/v1/ordercar")
+    public ResponseEntity<Booking> addBooking(@RequestBody Booking booking){
+        Booking addedBooking = bookingService.addBooking(booking);
+        if(addedBooking == null){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }else{
+            return ResponseEntity.ok(addedBooking);
+        }
+    }
+
     @GetMapping("/api/v1/customers")
     public ResponseEntity<List<Customer>> getAllCustomers() {
         return ResponseEntity.ok(customerService.fetchAllCustomers());
