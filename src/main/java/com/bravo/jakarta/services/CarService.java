@@ -6,8 +6,10 @@ import com.bravo.jakarta.repositories.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CarService implements CarServiceInterface{
@@ -23,13 +25,21 @@ public class CarService implements CarServiceInterface{
     }
 
     @Override
-    public List<Car> getAllCars() {     //admin endpoint, bokade eller ej
+    public List<Car> getAllCars() {
         return carRepository.findAll();
     }
 
     @Override
-    public List<Car> getAvailableCars() {   //customer endpoint, visa lediga bilar
-        return null;
+    public List<Car> getAvailableCars() {
+        LocalDateTime now = LocalDateTime.now();
+        List<Car> availableCars = carRepository.findAll().stream()
+                .filter(car -> car.getBookings().stream()
+                        .noneMatch(booking -> booking.getStarts().isBefore(now) && booking.getEnds().isAfter(now)))
+                .peek(car -> car.setHideBookings(true))
+                .collect(Collectors.toList());
+
+        System.out.println("Available cars count: " + availableCars.size());
+        return availableCars;
     }
 
     @Override
