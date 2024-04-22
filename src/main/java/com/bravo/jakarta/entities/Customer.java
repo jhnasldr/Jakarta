@@ -2,6 +2,8 @@ package com.bravo.jakarta.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "customers")
 public class Customer {
@@ -24,6 +26,8 @@ public class Customer {
 
     @Column(name = "phone_number", length = 15)
     private String phoneNumber;
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    private List<Booking> bookings;
 
     public Long getId() {
         return id;
@@ -71,6 +75,14 @@ public class Customer {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
     }
 
     public Customer() {
