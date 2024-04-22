@@ -4,6 +4,7 @@ import com.bravo.jakarta.entities.Booking;
 import com.bravo.jakarta.entities.Car;
 import com.bravo.jakarta.entities.Customer;
 import com.bravo.jakarta.services.*;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,11 +12,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 public class AdminController {
+    private static final Logger logger = Logger.getLogger(AdminController.class);
     private BookingService bookingService;
     private CarService carService;
     private CustomerService customerService;
+
 
     @Autowired
     public AdminController(BookingService bookingService, CarService carService, CustomerService customerService) {
@@ -37,23 +41,28 @@ public class AdminController {
 
     @GetMapping("/api/v1/customers")
     public ResponseEntity<List<Customer>> getAllCustomers() {
+        logger.info("admin viewed customers");
         return ResponseEntity.ok(customerService.fetchAllCustomers());
     }
-
     @PostMapping("/api/v1/addcustomer")
     public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer) {
-        return new ResponseEntity<>(customerService.addNewCustomer(customer), HttpStatus.CREATED);
+        Customer addedCustomer = customerService.addNewCustomer(customer);
+        logger.info("admin added customer with ID " + addedCustomer.getId());
+        return ResponseEntity.status(HttpStatus.CREATED).body(addedCustomer);
     }
+
 
     @PutMapping("/api/v1/updatecustomer")
     public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer) {
         long id = customer.getId();
+        logger.info("admin updated customer with ID " + customer.getId());
         return ResponseEntity.ok(customerService.updateCustomer(id, customer));
     }
 
     @DeleteMapping("/api/v1/deletecustomer")
     public ResponseEntity<String> deleteCustomer(@RequestBody Customer customer) {
         customerService.deleteCustomer(customer.getId());
+        logger.info("admin deleted customer with ID " + customer.getId());
         return new ResponseEntity<>("Customer with id " + customer.getId()+  " was deleted.", HttpStatus.OK);
 
     }
