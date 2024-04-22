@@ -24,7 +24,7 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping("/api/v1/cars") //TODO logik för att hämta endast tillgängliga bilar
+    @GetMapping("/api/v1/cars") 
     public List<Car> getAvailableCars(){
         System.out.println(carService.getAvailableCars());
         return carService.getAvailableCars();

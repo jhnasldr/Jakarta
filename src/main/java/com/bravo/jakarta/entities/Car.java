@@ -1,8 +1,17 @@
 package com.bravo.jakarta.entities;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIgnoreProperties("cars")
+
 public class Car {
 
     @Id
@@ -18,6 +27,8 @@ public class Car {
     private String plateNumber;
     @OneToMany(mappedBy = "car", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Booking> bookings;
+    @Transient
+    private boolean hideBookings;
 
     public Car() {
     }
@@ -71,11 +82,28 @@ public class Car {
         this.plateNumber = plateNumber;
     }
 
+    /*public List<Booking> getBookings() {
+        return hideBookings ? null : bookings;
+    }*/
     public List<Booking> getBookings() {
-        return bookings;
+        if (hideBookings) {
+            return new ArrayList<>();
+        } else {
+            return bookings;
+        }
     }
 
     public void setBookings(List<Booking> bookings) {
         this.bookings = bookings;
     }
+
+    @JsonIgnore
+    public boolean isHideBookings(){
+        return hideBookings;
+    }
+
+    public void setHideBookings(boolean hideBookings) {
+        this.hideBookings = hideBookings;
+    }
+
 }

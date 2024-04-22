@@ -10,6 +10,6 @@ INSERT INTO customers(username, name, address, email, phone_number) VALUES ('jen
 INSERT INTO customers(username, name, address, email, phone_number) VALUES ('codingmaster22', 'Lucas Nguyen', '321 Elm Drive, Lakeside, 67890', 'l.nguyen@email.com', '555-789-0123');
 INSERT INTO customers(username, name, address, email, phone_number) VALUES ('techwizard123', 'Sophia Patel', '987 Cedar Lane, Sunnyside, 13579', 'sophia.patel@email.com', '555-321-0987');
 
-INSERT INTO booking(starts, ends, car_id, customer_id) VALUES ('2024-04-15 21:00', '2024-04-16 21:00', 5, 2);
+INSERT INTO booking(starts, ends, car_id, customer_id) VALUES ('2024-04-20 21:00', '2024-04-30 21:00', 5, 2);
 INSERT INTO booking(starts, ends, car_id, customer_id) VALUES ('2024-04-01 12:00', '2024-04-06 12:00', 2, 4);
-INSERT INTO booking(starts, ends, car_id, customer_id) VALUES ('2024-04-10 10:00', '2024-04-10 15:00', 1, 5);
+INSERT INTO booking(starts, ends, car_id, customer_id) VALUES ('2024-05-10 10:00', '2024-05-13 15:00', 1, 5);

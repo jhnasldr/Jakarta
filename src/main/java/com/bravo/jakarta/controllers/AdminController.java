@@ -1,13 +1,11 @@
 package com.bravo.jakarta.controllers;
 
-import com.bravo.jakarta.DTOs.IdDTO;
 import com.bravo.jakarta.entities.Booking;
 import com.bravo.jakarta.entities.Car;
 import com.bravo.jakarta.entities.Customer;
 import com.bravo.jakarta.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -78,9 +76,8 @@ public class AdminController {
     }
 
     @DeleteMapping("/api/v1/deletecar")
-    public ResponseEntity<String> deleteCar(@RequestBody IdDTO idDTO){
-        carService.deleteCar(idDTO.getId());
-        return new ResponseEntity<>("Car deleted!", HttpStatus.OK);
-
+    public ResponseEntity<String> deleteCar(@RequestBody Car car){
+        carService.deleteCar(car.getId());
+        return new ResponseEntity<>("Car with id: " + car.getId() + " was deleted!", HttpStatus.OK);
     }
 }
