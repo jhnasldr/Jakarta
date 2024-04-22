@@ -1,9 +1,11 @@
 package com.bravo.jakarta.services;
 
+import com.bravo.jakarta.entities.Booking;
 import com.bravo.jakarta.entities.Customer;
 import com.bravo.jakarta.exceptions.ResourceNotFoundException;
 import com.bravo.jakarta.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -57,4 +59,12 @@ public class CustomerService implements CustomerServiceInterface {
         customerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer", "ID", id));
         customerRepository.deleteById(id);
     }
+
+    @Override
+    public List<Booking> fetchCustomerBookings(Long id) {
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Customer", "ID", id));
+        return ResponseEntity.ok(customer.getBookings()).getBody();
+    }
+
 }
