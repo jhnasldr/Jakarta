@@ -36,6 +36,7 @@ public class AdminController {
     @DeleteMapping("/api/v1/deleteorder")
     public ResponseEntity<String> deleteBooking(@RequestBody Booking booking){
         bookingService.deleteBooking(booking.getId());
+        logger.info("admin deleted following order: "+ booking.getId());
         return new ResponseEntity<>("Booking with id: " + booking.getId() + " was deleted.", HttpStatus.OK);
     }
 
