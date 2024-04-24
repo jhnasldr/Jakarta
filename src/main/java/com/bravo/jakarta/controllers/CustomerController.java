@@ -6,6 +6,7 @@ import com.bravo.jakarta.entities.Customer;
 import com.bravo.jakarta.services.BookingService;
 import com.bravo.jakarta.services.CarService;
 import com.bravo.jakarta.services.CustomerService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ public class CustomerController {
     private BookingService bookingService;
     private CarService carService;
     private CustomerService customerService;
+    private static final Logger logger = Logger.getLogger(CustomerController.class);
 
     @Autowired
     public CustomerController(BookingService bookingService, CarService carService, CustomerService customerService) {
@@ -37,6 +39,7 @@ public class CustomerController {
     }
     @GetMapping("/api/v1/myorders")
     public ResponseEntity<List<Booking>> getCustomerOrders(@RequestBody Customer customer) {
+        logger.info("customer with id " + customer.getId() + " viewed their orders");
         return ResponseEntity.ok(customerService.fetchCustomerBookings(customer.getId()));
     }
 
