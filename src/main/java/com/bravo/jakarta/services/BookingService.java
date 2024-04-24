@@ -48,4 +48,11 @@ public class BookingService implements BookingServiceInterface{
         Booking bookingToDelete = bookingRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Booking", "id", id));
         bookingRepository.delete(bookingToDelete);
     }
+
+    public void cancelBooking(Long id) {
+        Booking bookingToCancel = bookingRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Booking", "id", id));
+        bookingRepository.delete(bookingToCancel);
+    }
+
+
 }

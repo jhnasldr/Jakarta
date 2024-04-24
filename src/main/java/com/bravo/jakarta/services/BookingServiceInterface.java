@@ -12,4 +12,6 @@ public interface BookingServiceInterface {
     Booking addBooking(Booking booking);
 
     void deleteBooking(Long id);
+
+    void cancelBooking(Long id);
 }

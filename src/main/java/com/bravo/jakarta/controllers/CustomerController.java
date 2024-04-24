@@ -7,8 +7,10 @@ import com.bravo.jakarta.services.BookingService;
 import com.bravo.jakarta.services.CarService;
 import com.bravo.jakarta.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,4 +40,11 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.fetchCustomerBookings(customer.getId()));
     }
 
+    @PutMapping("/api/v1/cancelbooking")
+    public ResponseEntity<String> cancelBooking(@RequestBody Booking booking) {
+        Long id = booking.getId();
+        bookingService.cancelBooking(id);
+        String message = "Booking with ID " + id + " has been cancelled.";
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
 }
