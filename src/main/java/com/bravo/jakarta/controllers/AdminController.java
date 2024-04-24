@@ -75,18 +75,22 @@ public class AdminController {
 
     @PostMapping("/api/v1/addcar")
     public ResponseEntity<Car> addCar(@RequestBody Car car){
-        return new ResponseEntity<>(carService.addCar(car), HttpStatus.CREATED);
+        Car addedCar = carService.addCar(car);
+        logger.info("admin added car with ID " + addedCar.getId());
+        return new ResponseEntity<>(addedCar, HttpStatus.CREATED);
     }
 
     @PutMapping("/api/v1/updatecar")
     public ResponseEntity<Car> updateCar(@RequestBody Car car){
         int id = car.getId();
+        logger.info("admin updated car with ID " + car.getId());
         return ResponseEntity.ok(carService.updateCar(id, car));
     }
 
     @DeleteMapping("/api/v1/deletecar")
     public ResponseEntity<String> deleteCar(@RequestBody Car car){
         carService.deleteCar(car.getId());
+        logger.info("admin deleted car with ID " + car.getId());
         return new ResponseEntity<>("Car with id: " + car.getId() + " was deleted!", HttpStatus.OK);
     }
 }
