@@ -10,10 +10,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -37,6 +34,19 @@ public class CustomerController {
         System.out.println(carService.getAvailableCars());
         return carService.getAvailableCars();
     }
+
+    @PostMapping("/api/v1/ordercar")
+    public ResponseEntity<Booking> addBooking(@RequestBody Booking booking){
+        Booking addedBooking = bookingService.addBooking(booking);
+        if(addedBooking == null){
+            logger.info("Customer with id: " + booking.getCustomer().getId() + " tried to order car with id: " + booking.getCar().getId() + " but did not succeed");
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }else{
+            logger.info("Customer with id: " + booking.getCustomer().getId() + " ordered car with id: " + booking.getCar().getId());
+            return ResponseEntity.ok(addedBooking);
+        }
+    }
+
     @GetMapping("/api/v1/myorders")
     public ResponseEntity<List<Booking>> getCustomerOrders(@RequestBody Customer customer) {
         logger.info("customer with id " + customer.getId() + " viewed their orders");
