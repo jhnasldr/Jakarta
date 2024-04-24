@@ -29,7 +29,7 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping("/api/v1/cars") 
+    @GetMapping("/api/v1/cars")
     public List<Car> getAvailableCars(){
         System.out.println(carService.getAvailableCars());
         return carService.getAvailableCars();
@@ -38,7 +38,7 @@ public class CustomerController {
     @PostMapping("/api/v1/ordercar")
     public ResponseEntity<Booking> addBooking(@RequestBody Booking booking){
         Booking addedBooking = bookingService.addBooking(booking);
-        if(addedBooking == null){
+        if (addedBooking == null) {
             logger.info("Customer with id: " + booking.getCustomer().getId() + " tried to order car with id: " + booking.getCar().getId() + " but did not succeed");
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }else{
@@ -53,11 +53,13 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.fetchCustomerBookings(customer.getId()));
     }
 
-    @PutMapping("/api/v1/cancelbooking")
+    @PutMapping("/api/v1/cancelorder")
     public ResponseEntity<String> cancelBooking(@RequestBody Booking booking) {
         Long id = booking.getId();
         bookingService.cancelBooking(id);
+        logger.info("customer cancelled booking with ID " + id);
         String message = "Booking with ID " + id + " has been cancelled.";
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }
+
