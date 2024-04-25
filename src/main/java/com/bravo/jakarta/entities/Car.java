@@ -82,9 +82,6 @@ public class Car {
         this.plateNumber = plateNumber;
     }
 
-    /*public List<Booking> getBookings() {
-        return hideBookings ? null : bookings;
-    }*/
     public List<Booking> getBookings() {
         if (hideBookings) {
             return new ArrayList<>();
