@@ -1,6 +1,8 @@
 package com.bravo.jakarta.services;
 
 import com.bravo.jakarta.entities.Booking;
+import com.bravo.jakarta.entities.Car;
+import com.bravo.jakarta.entities.Customer;
 import com.bravo.jakarta.exceptions.ResourceNotFoundException;
 import com.bravo.jakarta.repositories.BookingRepository;
 import com.bravo.jakarta.repositories.CarRepository;
@@ -31,12 +33,16 @@ public class BookingService implements BookingServiceInterface{
     @Override
     public Booking addBooking(Booking booking) {
         Booking addedBooking = null;
+        Car car;
+        Customer customer;
         List<Booking> overlappingBookings = bookingRepository.findBookingByCar_IdAndEndsAfterAndStartsBefore(booking.getCar().getId(), booking.getStarts(), booking.getEnds());
         if(overlappingBookings.isEmpty()){
             if(booking.getEnds().isAfter(booking.getStarts())) {
-                carRepository.findById(booking.getCar().getId()).orElseThrow(() -> new ResourceNotFoundException("addBooking", "car", booking.getCar().getId()));
-                customerRepository.findById(booking.getCustomer().getId()).orElseThrow(() -> new ResourceNotFoundException("addBooking", "customer_id", booking.getCustomer().getId()));
+                car = carRepository.findById(booking.getCar().getId()).orElseThrow(() -> new ResourceNotFoundException("addBooking", "car_id", booking.getCar().getId()));
+                customer = customerRepository.findById(booking.getCustomer().getId()).orElseThrow(() -> new ResourceNotFoundException("addBooking", "customer_id", booking.getCustomer().getId()));
                 booking.setId(null);
+                booking.setCar(car);
+                booking.setCustomer(customer);
                 addedBooking = bookingRepository.save(booking);
             }
         }
