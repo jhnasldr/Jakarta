@@ -49,11 +49,9 @@ public class CustomerController {
     }
 
     @GetMapping("/api/v1/myorders")
-//    public ResponseEntity<List<Booking>> getCustomerOrders(@RequestBody Customer customer) {
     public ResponseEntity<OrdersDto> getCustomerOrders(@RequestBody Customer customer) {
         logger.info("customer with id " + customer.getId() + " viewed their orders");
         return ResponseEntity.ok(new OrdersDto(customerService.fetchCustomerBookings(customer.getId())));
-//        return ResponseEntity.ok(customerService.fetchCustomerBookings(customer.getId()));
     }
 
     @PutMapping("/api/v1/cancelorder")
